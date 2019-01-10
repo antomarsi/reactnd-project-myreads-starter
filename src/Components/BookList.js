@@ -1,5 +1,6 @@
 import React from 'react';
 import PropType from 'prop-types';
+import sortBy from 'sort-by';
 import BookDetail from './BookDetail';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,7 +22,7 @@ class BookList extends React.Component {
 
 	render() {
 		const { classes, books, onShelfTypeChange } = this.props;
-	
+		books.sort(sortBy('name'));
 		return (
 		<Grid container justify="center" className={classes.grow} spacing={16}>
 			{books.map(book => (

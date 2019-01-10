@@ -1,5 +1,4 @@
 import React from 'react';
-import sortBy from 'sort-by';
 import PropType from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
@@ -61,7 +60,7 @@ class IndexPage extends React.Component {
 				</Toolbar>
 			</AppBar>
 			{bookshelfs.filter(bookshelf=>bookshelf.books.length > 0).map(bookshelf => (
-				<Grid key={bookshelf.id} className={classes.grow}>
+				<Grid key={bookshelf.name} className={classes.grow}>
 					<Grid item xs={12}>
 						<Typography variant="h4" color="inherit" align="center" className={classes.grow}>
 							{bookshelf.name}
