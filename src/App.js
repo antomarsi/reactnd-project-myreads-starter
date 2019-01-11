@@ -10,16 +10,32 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount = () => {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
+    this.getBooks();
   }
 
-  updateBook = (book) => {
-    BooksAPI.update(book, book.shelf);
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
+  getBooks = () => {
+    var books = localStorage.books;
+    if (!books) {
+      BooksAPI.getAll().then((books) => {
+        localStorage.books = JSON.stringify(books);
+        this.setState({ books })
+      });
+    } else {
+      this.setState({ books: JSON.parse(books) })
+    }
+  }
+
+  updateBook = (editedBook) => {
+    BooksAPI.update(editedBook, editedBook.shelf).then(() => {
+      var books = this.state.books.map((book) => {
+        if (book.id === editedBook.id) {
+          book = editedBook;
+        }
+        return book;
+      })
+      this.setState({ books });
+      localStorage.books = JSON.stringify(books);
+    });
   }
 
   searchBooks = (query) => {
@@ -29,12 +45,7 @@ class BooksApp extends React.Component {
   searchBook = (book) => {
     return BooksAPI.get(book.id)
   }
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
+
   render() {
     const { books } = this.state;
     return (

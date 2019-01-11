@@ -26,9 +26,9 @@ const styles = theme => ({
 class IndexPage extends React.Component {
 	state = {
 		bookshelfs: [
-			{name: 'Currently Reading', shelf: 'currentlyReading'},
-			{name: 'Read', shelf: 'read'},
-			{name: 'Want to read', shelf: 'wantToRead'},
+			{name: 'Currently Reading', shelf: 'currentlyReading', books:[]},
+			{name: 'Read', shelf: 'read', books:[]},
+			{name: 'Want to read', shelf: 'wantToRead', books:[]},
 		],
 	};
 
